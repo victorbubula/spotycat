@@ -1,13 +1,19 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+:root {
+  width: 500px;
+  height: 100vh;
+  margin: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
+
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  color: rgb(65, 197, 48);
   will-change: filter;
   transition: filter 300ms;
 }
@@ -18,25 +24,17 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  margin: 2em;
+  padding: 20px;
+  border-radius: 25px;
+  width: 300px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.botao {
+  background-color: rgb(65, 197, 48);
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.botao:hover {
+  background-color: rgb(23, 61, 23);
 }
