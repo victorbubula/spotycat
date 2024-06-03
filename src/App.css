@@ -13,7 +13,7 @@
 }
 
 .logo {
-  color: rgb(65, 197, 48);
+  color: #F9B4B7;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -32,9 +32,9 @@ input {
 }
 
 .botao {
-  background-color: rgb(65, 197, 48);
+  background-color: #F9B4B7;
 }
 
 .botao:hover {
-  background-color: rgb(23, 61, 23);
+  background-color: #fc439f;
 }
