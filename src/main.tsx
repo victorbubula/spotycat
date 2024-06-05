@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Login from './login.tsx'
+
 import './index.css'
+import App from './app'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Login />
+    <App/>
   </React.StrictMode>,
 )

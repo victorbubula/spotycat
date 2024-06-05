@@ -1,7 +1,14 @@
 :root {
-  width: 500px;
-  height: 100vh;
+  background-color: #f3daf3;
+}
+
+.container {
   margin: auto;
+  justify-content: center;
+  display: flex;
+  height: 100vh;
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 .card {
@@ -13,6 +20,7 @@
 }
 
 .logo {
+  font-size: 70px;
   color: #F9B4B7;
   will-change: filter;
   transition: filter 300ms;
@@ -33,6 +41,8 @@ input {
 
 .botao {
   background-color: #F9B4B7;
+  padding: 1em 2em;
+  border-radius: 20px;
 }
 
 .botao:hover {
