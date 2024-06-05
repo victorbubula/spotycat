@@ -48,9 +48,10 @@ const Home = () => {
           console.log(data);
           setAlbums(data.items);
         })
+        console.log(albumsRetornados);
     // Mostrar os albums ao usuario
   }
-  console.log(albums);
+  
     return (
       <>
         <Container>
