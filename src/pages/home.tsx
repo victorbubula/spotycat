@@ -21,6 +21,8 @@ const Home = () => {
     if (code == null) {
       code = ""
     }
+    let ams = new URLSearchParams(document.location.search)
+    ams.delete
     const getToken = async (code: string, clientId: string, codeVerifier: string, redirectUri: string, url: string) => {
 
       const payload = {
