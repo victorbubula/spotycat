@@ -8,7 +8,7 @@ function Autenticacao() {
 	  const redirectUri: string = 'https://spotycat.vercel.app/home';
   
 	  const scope: string = 'playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private';
-	  const authUrl: URL = new URL("https://accounts.spotify.com/authorize");
+	  const authUrl: URL = new URL("https://accounts.spotify.com/authorize?");
   
 	  const codeVerifier: string = generateCodeVerifier();
 	  generateCodeChallenge(codeVerifier).then(codeChallenge => {

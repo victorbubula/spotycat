@@ -1,96 +1,92 @@
 import { useState, useEffect } from 'react';
-import { Container, InputGroup, FormControl, Button, Row, Card} from 'react-bootstrap';
-import IAlbums from '../interfaces/IAlbums';
+import Sidebar from '../components/Sidebar';
+import IUsuario from '../interfaces/IUsuario';
 
-const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
-const clientSecret: string = '16ac7362ab474b98be0eaab33e476a7c';
+
 
 const Home = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [tokenAcesso, setTokenAcesso] = useState("");
-  const [albums, setAlbums] = useState<IAlbums[]>([]);
+  const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({nome:"vitor", userid: "dsakdksa"})
+  const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
+  const redirectUri: string = 'https://spotycat.vercel.app/home'
+  const url: string = "https://accounts.spotify.com/api/token"
 
   useEffect(() => {
-		// Token de acesso da API
-		var authParameters = {
-			method:'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: 'grant_type=client_credentials&client_id=' + clientId + '&client_secret=' + clientSecret
-		}
-		fetch('https://accounts.spotify.com/api/token', authParameters)
-			.then(result => result.json())
-			.then(data => setTokenAcesso(data.access_token))
-	}, [])
 
-  // Pesquisa
-  async function search() {
-    console.log('search for ' + searchInput)
-    
-    // Pesquisando pelo Artist ID 
-    var searchParameters ={
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + tokenAcesso
-      }
+    let codeVerifier = localStorage.getItem('code_verifier');
+    if (codeVerifier == null) {
+      codeVerifier = ""
     }
-    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
-        .then(response => response.json())
-        .then(data => { return data.artists.items[0].id })
+    let params = new URLSearchParams(document.location.search)
+    let code = params.get("code")
+    if (code == null) {
+      code = ""
+    }
+    const getToken = async (code: string, clientId: string, codeVerifier: string, redirectUri: string, url: string) => {
 
-      console.log('artist id is ' + artistID)
-    // conseguir todos os albums do artista pelo Artist ID
-    var albumsRetornados = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=50', searchParameters)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          setAlbums(data.items);
-        })
-        console.log(albumsRetornados);
-    // Mostrar os albums ao usuario
-  }
-  
-    return (
-      <>
-        <Container>
-          <InputGroup className='mb-3' size='lg'>
-            <FormControl
-              placeholder='Search For Artist'
-              type='input'
-              onKeyDown={event => {
-                if (event.key == "Enter") {
-                  search()
-                }
-              }}
-              onChange={event => setSearchInput(event.target.value)}
-            />
-            <Button onClick={search}>
-              Search
-            </Button>
-          </InputGroup>
-        </Container>
-        <Container>
-          <Row className='mx-2 row row-cols-4'>
-            {albums.map((album: IAlbums|any) => {
-              console.log(album);
-              return (
-                 <Card key={album.id}>
-                  <Card.Img src={album.images[0].url}/>
-                  <Card.Body>
-                    <Card.Title>{album.name}</Card.Title>
-                  </Card.Body>
-                </Card>
-              )
-            })}
-               
-              
-            
-          </Row>
-        </Container>
-      </>
-    );
-  };
-  
-  export default Home;
+      const payload = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          client_id: clientId,
+          grant_type: 'authorization_code',
+          code,
+          redirect_uri: redirectUri,
+          code_verifier: codeVerifier,
+        }),
+      }
+
+      const body = await fetch(url, payload);
+      const response = await body.json();
+
+      localStorage.setItem('access_token', response.access_token);
+      getUserId()
+      getPlaylists()
+    }
+    getToken(code, clientId, codeVerifier, redirectUri, url)
+    const getUserId = async () => {
+      let tok = localStorage.getItem("access_token")
+      const userID = {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + tok
+        }
+      }
+
+      const body = await fetch("https://api.spotify.com/v1/me", userID);
+      const response = await body.json();
+
+      setUsuarioLogado({
+        nome: response.display_name,
+        userid: response.id
+      })
+
+    }
+    const getPlaylists = async () => {
+      let tok = localStorage.getItem("access_token")
+      const userID = {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + tok
+        }
+      }
+
+      const body = await fetch("https://api.spotify.com/v1/me/playlists", userID);
+      const response = await body.json();
+      console.log(response)
+    }
+
+  }, []);
+ console.log(usuarioLogado)
+  return (
+    <div className='main'>
+      <Sidebar />
+      <h1>ola {usuarioLogado.nome}</h1>
+    </div>
+  );
+};
+
+export default Home;
