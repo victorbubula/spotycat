@@ -24,7 +24,7 @@ function Autenticacao() {
 		};
   
 		authUrl.search = new URLSearchParams(params).toString();
-		window.localStorage.setItem("code",authUrl.toString());
+		window.location.href = authUrl.toString();
 	  });
 	}, []);
   
