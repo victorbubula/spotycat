@@ -11,7 +11,7 @@ const Home = () => {
   const url: string = "https://accounts.spotify.com/api/token"
 
   useEffect(() => {
-
+    
     let codeVerifier = localStorage.getItem('code_verifier');
     if (codeVerifier == null) {
       codeVerifier = ""
