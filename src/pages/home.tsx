@@ -6,7 +6,7 @@ import getToken from '../api/SpotifyApi';
 
 
 const Home = () => {
-  const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({nome:"", userid: ""})
+  const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "" })
   const [userPlaylist, setUserPlaylist] = useState("")
   const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
   const redirectUri: string = 'https://spotycat.vercel.app/home'
@@ -23,8 +23,8 @@ const Home = () => {
     if (code == null) {
       code = ""
     }
-   
-    getToken(code, clientId, codeVerifier, redirectUri, url, setUsuarioLogado,setUserPlaylist)
+
+    getToken(code, clientId, codeVerifier, redirectUri, url, setUsuarioLogado, setUserPlaylist)
     function removerParametrosEspecificosDaURL(url: string, parametrosParaRemover: string[]) {
       // Criando um objeto URL a partir da URL fornecida
       const urlObj = new URL(url);
@@ -33,13 +33,13 @@ const Home = () => {
         urlObj.searchParams.delete(param);
       });
       // Atualizando a URL atual no histórico do navegador
-    window.history.replaceState({}, '', urlObj.toString());
+      window.history.replaceState({}, '', urlObj.toString());
     }
     // Exemplo de uso:
     removerParametrosEspecificosDaURL(window.location.href, ['?', 'code']);
 
   }, []);
- console.log(usuarioLogado)
+  console.log(usuarioLogado)
   return (
     <div className='main'>
       <Sidebar />
