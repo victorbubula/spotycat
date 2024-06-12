@@ -9,7 +9,7 @@ const Home = () => {
   const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "" })
   const [userPlaylist, setUserPlaylist] = useState("")
   const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
-  const redirectUri: string = 'https://spotycat.vercel.app/home'
+  const redirectUri: string = 'http://localhost:5173/home'
   const url: string = "https://accounts.spotify.com/api/token"
 
   useEffect(() => {
