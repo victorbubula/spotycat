@@ -5,7 +5,7 @@ function Autenticacao() {
 
 	useEffect(() => {
 	  const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
-	  const redirectUri: string = 'http://localhost:5173/home';
+	  const redirectUri: string = 'https://spotycat.vercel.app/home';
   
 	  const scope: string = 'playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private';
 	  const authUrl: URL = new URL("https://accounts.spotify.com/authorize?");

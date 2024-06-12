@@ -1,6 +1,6 @@
 import IUsuario from "../interfaces/IUsuario";
 
-export default async function getToken(code: string, clientId: string, codeVerifier: string, redirectUri: string, url: string, setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>) {
+export default async function getToken(code: string, clientId: string, codeVerifier: string, redirectUri: string, url: string, setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>,setUserPlaylist:React.Dispatch<React.SetStateAction<string>>) {
     const payload = {
         method: 'POST',
         headers: {
@@ -20,7 +20,7 @@ export default async function getToken(code: string, clientId: string, codeVerif
 
       localStorage.setItem('access_token', response.access_token);
       getUserId(setUsuarioLogado)
-      getPlaylists()
+      getPlaylists(setUserPlaylist)
 }
 
 const getUserId = async (setUsuarioLogado:React.Dispatch<React.SetStateAction<IUsuario>> ) => {
@@ -43,7 +43,7 @@ const getUserId = async (setUsuarioLogado:React.Dispatch<React.SetStateAction<IU
 
   }
 
-  const getPlaylists = async () => {
+ export const getPlaylists = async (setUserPlaylist:React.Dispatch<React.SetStateAction<string>>) => {
     let tok = localStorage.getItem("access_token")
     const userID = {
       method: 'GET',
@@ -55,5 +55,5 @@ const getUserId = async (setUsuarioLogado:React.Dispatch<React.SetStateAction<IU
 
     const body = await fetch("https://api.spotify.com/v1/me/playlists", userID);
     const response = await body.json();
-    console.log(response)
+    setUserPlaylist(response.items[0].name)
   }

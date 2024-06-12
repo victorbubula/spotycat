@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Autenticacao from "./pages/autenticacao";
 import Home from "./pages/home";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 
 
 export default function App() {
