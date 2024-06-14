@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 
 function Autenticacao() {
@@ -6,7 +5,6 @@ function Autenticacao() {
 	useEffect(() => {
 		const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
 		const redirectUri: string = 'http://localhost:5173/home';
-
 		const scope: string = 'playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private';
 		const authUrl: URL = new URL("https://accounts.spotify.com/authorize?");
 
@@ -22,7 +20,6 @@ function Autenticacao() {
 				code_challenge: codeChallenge,
 				redirect_uri: redirectUri,
 			};
-
 			authUrl.search = new URLSearchParams(params).toString();
 			window.location.href = authUrl.toString();
 		});

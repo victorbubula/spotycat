@@ -1,6 +1,5 @@
 
-
-const Sidebar =() => {
+const Sidebar = () => {
 
     return (
         <div className="sidebar-container">

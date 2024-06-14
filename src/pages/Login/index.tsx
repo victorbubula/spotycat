@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './login.css'
 
 const Login = () => {
-    return (
+	return (
 		<>
 			<div className='container'>
 				<div className="card">
