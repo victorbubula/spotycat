@@ -1,10 +1,15 @@
 import IPlaylists from "../interfaces/IPlaylists";
 import IUsuario from "../interfaces/IUsuario";
+const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
+let tokRefresh = "";
+let expiresIn = 3600
+let tokenExpirado = false
 
-export default async function getToken(setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>, setUserPlaylist: React.Dispatch<React.SetStateAction<string>>) {
-  const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
+const url: string = "https://accounts.spotify.com/api/token"
+export default async function getToken() {
+
   const redirectUri: string = 'http://localhost:5173/home'
-  const url: string = "https://accounts.spotify.com/api/token"
+
   let codeVerifier = localStorage.getItem('code_verifier');
   if (codeVerifier == null) {
     codeVerifier = ""
@@ -14,6 +19,7 @@ export default async function getToken(setUsuarioLogado: React.Dispatch<React.Se
   if (code == null) {
     code = ""
   }
+
   const payload = {
     method: 'POST',
     headers: {
@@ -31,18 +37,24 @@ export default async function getToken(setUsuarioLogado: React.Dispatch<React.Se
   const body = await fetch(url, payload);
   const response = await body.json();
 
+  tokRefresh = response.refresh_token;
+  expiresIn = response.expires_in;
+  tokenExpirado = false;
   localStorage.setItem('access_token', response.access_token);
-  getUserId(setUsuarioLogado)
-  getPlaylists(setUserPlaylist)
+  setTimeout(() => {
+    tokenExpirado = true
+  }, expiresIn)
+
 }
 
-const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>) => {
-  let tok = localStorage.getItem("access_token")
+export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>) => {
+  if (tokenExpirado) await getRefreshToken()
+  let tokenacesso = localStorage.getItem("access_token")
   const userID = {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      'Authorization': 'Bearer ' + tok
+      'Authorization': 'Bearer ' + tokenacesso
     }
   }
 
@@ -57,12 +69,13 @@ const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateAction<I
 }
 
 export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStateAction<string>>) => {
-  let tok = localStorage.getItem("access_token")
+  if (tokenExpirado) await getRefreshToken()
+  let tokenacesso = localStorage.getItem("access_token")
   const userID = {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      'Authorization': 'Bearer ' + tok
+      'Authorization': 'Bearer ' + tokenacesso
     }
   }
 
@@ -71,3 +84,28 @@ export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStat
   const playlist = response.items.map((item: IPlaylists) => `${item.name} `)
   setUserPlaylist(playlist)
 }
+
+const getRefreshToken = async () => {
+  const refresh = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: clientId,
+      grant_type: 'refresh_token',
+      refresh_token: tokRefresh
+    })
+  }
+  const body = await fetch(url, refresh);
+  const response = await body.json();
+  localStorage.setItem('access_token', response.access_token)
+  tokRefresh = response.refresh_token;
+  expiresIn = response.expires_in;
+  tokenExpirado = false
+
+  setTimeout(() => {
+    tokenExpirado = true
+  }, expiresIn)
+}
+

@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import IUsuario from '../../interfaces/IUsuario';
-import getToken from '../../api/SpotifyApi';
+import getToken, { getPlaylists, getUserId } from '../../api/SpotifyApi';
 
 const Home = () => {
   const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "" })
   const [userPlaylist, setUserPlaylist] = useState("")
-
+  let token =localStorage.getItem('access_token')
   useEffect(() => {
 
-    getToken(setUsuarioLogado, setUserPlaylist);
+    if(token == null) getToken();
+    getUserId(setUsuarioLogado);
+    getPlaylists(setUserPlaylist);
     function removerParametrosEspecificosDaURL(url: string, parametrosParaRemover: string[]) {
       // Criando um objeto URL a partir da URL fornecida
       const urlObj = new URL(url);
