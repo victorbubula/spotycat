@@ -1,0 +1,45 @@
+
+.container {
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffd3d3;
+  .canto {
+    background-color: #e7858a;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    .logo {
+      font-size: 10em;
+      color: #e7858a;
+      will-change: filter;
+      transition: filter 300ms;
+    }
+    .botao {
+      background-color: #e7858a;
+      padding: 0.5em 1em;
+      border-radius: 30px;
+      position: fixed;
+      bottom: 0;
+      font-size: 2em;
+      margin: 2em 0;
+      text-decoration: none;
+      color: white;
+    }
+  }
+  .gato {
+    position: fixed;
+    right: 0;
+    margin: 10em;
+  }
+}

@@ -1,0 +1,57 @@
+.container {
+    background-color: rgb(63, 63, 63);
+    height: 100vh;
+    .containerperfil {
+        display: flex;
+        justify-content: right;
+        .perfil {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: black;
+            display: flex;
+            padding: 5px;
+            
+            .nome {
+                position: fixed;
+                background-color: black;
+                color: aliceblue;
+                padding: 0.3em;
+                border-radius: 3px;
+                margin: 3.5em 0;
+                right: 0;
+                transform: scale(0);
+            }
+            .foto {
+                max-width: 50px;
+                max-height: 50px;
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+            .letra {
+                font-size: 2em;
+                font-weight: bold;
+                text-align: center;
+                margin: auto;
+                background-color: rgba(175, 128, 187, 0.815);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .perfil:hover {
+            .nome{
+                transition: all 0.1s;
+                transition-delay: 0.4s;
+                transform: scale(1);
+            }
+        }
+    }
+
+}

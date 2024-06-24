@@ -1,14 +1,14 @@
+
 import IPlaylists from "../interfaces/IPlaylists";
-import IUsuario from "../interfaces/IUsuario";
+import IUsuario, { IFoto } from "../interfaces/IUsuario";
 const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
 let tokRefresh = "";
 let expiresIn = 3600
 let tokenExpirado = false
-
 const url: string = "https://accounts.spotify.com/api/token"
 export default async function getToken() {
 
-  const redirectUri: string = 'http://localhost:5173/home'
+  const redirectUri: string = 'http://localhost:5173'
 
   let codeVerifier = localStorage.getItem('code_verifier');
   if (codeVerifier == null) {
@@ -40,11 +40,11 @@ export default async function getToken() {
   tokRefresh = response.refresh_token;
   expiresIn = response.expires_in;
   tokenExpirado = false;
-  localStorage.setItem('access_token', response.access_token);
+  localStorage.setItem("access_token", response.access_token);
   setTimeout(() => {
     tokenExpirado = true
   }, expiresIn)
-
+  window.location.reload()
 }
 
 export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>) => {
@@ -60,17 +60,18 @@ export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateA
 
   const body = await fetch("https://api.spotify.com/v1/me", userID);
   const response = await body.json();
-
+  const foto = response.images.map((item:IFoto)=> item.url);
   setUsuarioLogado({
     nome: response.display_name,
-    userid: response.id
+    userid: response.id,
+    foto: foto
   })
 
 }
 
 export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStateAction<string>>) => {
-  if (tokenExpirado) await getRefreshToken()
-  let tokenacesso = localStorage.getItem("access_token")
+  if (tokenExpirado) await getRefreshToken();
+  let tokenacesso = localStorage.getItem("access_token");
   const userID = {
     method: 'GET',
     headers: {
