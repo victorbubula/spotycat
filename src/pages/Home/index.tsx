@@ -4,6 +4,7 @@ import IUsuario from '../../interfaces/IUsuario';
 import getToken, { getPlaylists, getUserId } from '../../api/SpotifyApi';
 import styles from './Home.module.scss';
 import Login from '../Login';
+import Perfil from '../../components/Perfil';
 
 const Home = () => {
   const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "", foto:[]})
@@ -26,24 +27,17 @@ const Home = () => {
       window.history.replaceState({}, '', urlObj.toString());
     }
     removerParametrosEspecificosDaURL(window.location.href, ['?', 'code']);
-    
+    localStorage.removeItem('code_verifier');
   }, []);
-  return (!code) ?
+  return (!code&& !token) ?
     (
       <Login />
     ) :
     (
       <div className={styles.container}>
-        <Sidebar />
-        <div className={styles.containerperfil}>
-          <button>pesqu</button>
-          <button>sino</button>
-          <div className={styles.perfil}>
-            <p className={styles.nome}>{usuarioLogado.nome}</p>
-            {(usuarioLogado.foto.length != 0)? <div><img className={styles.foto} src={usuarioLogado.foto[0]} alt="aaaa" /></div> :<h1 className={styles.letra}>{usuarioLogado.nome.charAt(0)}</h1>}
-          </div>
-        </div>
         
+        <Perfil usuario={usuarioLogado} />
+        <Sidebar/>
         <p>{userPlaylist}</p>
       </div>
     );
