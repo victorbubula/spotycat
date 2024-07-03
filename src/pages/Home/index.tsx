@@ -35,10 +35,10 @@ const Home = () => {
     ) :
     (
       <div className={styles.container}>
-        
-        <Perfil usuario={usuarioLogado} />
-        <Sidebar/>
-        <p>{userPlaylist}</p>
+        <Sidebar playlists={userPlaylist}/>
+        <div className={styles.inicio}>
+          <Perfil usuario={usuarioLogado} />
+        </div>
       </div>
     );
 };

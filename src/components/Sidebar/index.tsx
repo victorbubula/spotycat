@@ -1,10 +1,21 @@
+import styles from "./Sidebar.module.scss";
 
-const Sidebar = () => {
+interface props {
+    playlists:string
+}
+
+const Sidebar = ({playlists}:props) => {
 
     return (
-        <div className="sidebar-container">
-            <div>
-                <button>clica</button>
+        <div className={styles.container}>
+            <div className={styles.inicio}>
+                <p>Inicio</p>
+            </div>
+            <div className={styles.biblioteca}>
+                <p>Sua Biblioteca</p>
+                <p>
+                    {playlists}
+                </p>
             </div>
         </div>
     )

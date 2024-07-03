@@ -1,4 +1,14 @@
-.container {
+:root{
+    background-color: rgb(26, 25, 25);
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    .inicio {
     background-color: rgb(63, 63, 63);
-    height: 100vh;
+    height: 98vh;
+    margin: 0.5em;
+    width: 100%;
+    border-radius: 10px;
+    }
 }

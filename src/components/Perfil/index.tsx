@@ -1,6 +1,7 @@
 import IUsuario from '../../interfaces/IUsuario';
 import styles from './Perfil.module.scss';
-import lupa from '../../assets/lupa.svg'
+import Pesquisa from './Pesquisa';
+
 interface props{
     usuario: IUsuario
 }
@@ -8,8 +9,7 @@ interface props{
 export default function Perfil({usuario}:props) {
     return (
         <div className={styles.container}>
-            <input className={styles.buscar} type="text" />
-            <button className={styles.botao}><img src={lupa} alt="pesquisar" /></button>
+            <Pesquisa/>
             <button className={styles.botao}>sino</button>
             <div className={styles.perfil}>
                 <p className={styles.nome}>{usuario.nome}</p>
