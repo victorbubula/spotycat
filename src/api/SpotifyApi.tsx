@@ -1,4 +1,6 @@
 
+import IAlbums from "../interfaces/IAlbums";
+import ICard from "../interfaces/ICard";
 import IPlaylists from "../interfaces/IPlaylists";
 import IUsuario, { IFoto } from "../interfaces/IUsuario";
 const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
@@ -69,7 +71,7 @@ export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateA
 
 }
 
-export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStateAction<string>>) => {
+export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStateAction<Array<ICard>>>) => {
   if (tokenExpirado) await getRefreshToken();
   let tokenacesso = localStorage.getItem("access_token");
   const userID = {
@@ -82,8 +84,38 @@ export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStat
 
   const body = await fetch("https://api.spotify.com/v1/me/playlists", userID);
   const response = await body.json();
-  const playlist = response.items.map((item: IPlaylists) => `${item.name} `)
+  const playlist =  response.items.map((item: IPlaylists) => {return({
+    nome:item.name, 
+    foto:item.images,
+    tipo:item.type,
+    id:item.id
+  })})
   setUserPlaylist(playlist)
+  console.log(response)
+}
+
+export const getAlbums = async (setUserAlbum: React.Dispatch<React.SetStateAction<Array<ICard>>>) => {
+  if (tokenExpirado) await getRefreshToken();
+  let tokenacesso = localStorage.getItem("access_token");
+  const userID = {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + tokenacesso
+    }
+  }
+
+  const body = await fetch("https://api.spotify.com/v1/me/albums", userID);
+  const response = await body.json();
+  
+  const album = response.items.map((item: IAlbums) => {return({
+    nome:item.album.name, 
+    foto:item.album.images,
+    tipo:item.album.type,
+    artista:item.album.artists,
+    id:item.album.id
+  })})
+  setUserAlbum(album)
 }
 
 const getRefreshToken = async () => {
