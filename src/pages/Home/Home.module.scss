@@ -1,5 +1,9 @@
+@import "../../styles/variaveis";
+
 :root{
     background-color: rgb(26, 25, 25);
+    font-family: $fonte;
+    font-weight: $normal;
 }
 .container{
     display: flex;

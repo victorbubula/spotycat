@@ -4,6 +4,6 @@ export default interface ICard {
     nome:string 
     foto:Array<IFoto>|null
     tipo:string
-    artista:Array<object>
+    artista:string
     id:string
 }

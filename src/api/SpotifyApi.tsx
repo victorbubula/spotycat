@@ -88,10 +88,10 @@ export const getPlaylists = async (setUserPlaylist: React.Dispatch<React.SetStat
     nome:item.name, 
     foto:item.images,
     tipo:item.type,
+    artista: "victor",
     id:item.id
   })})
   setUserPlaylist(playlist)
-  console.log(response)
 }
 
 export const getAlbums = async (setUserAlbum: React.Dispatch<React.SetStateAction<Array<ICard>>>) => {
@@ -112,10 +112,11 @@ export const getAlbums = async (setUserAlbum: React.Dispatch<React.SetStateActio
     nome:item.album.name, 
     foto:item.album.images,
     tipo:item.album.type,
-    artista:item.album.artists,
+    artista:item.album.artists[0].name,
     id:item.album.id
   })})
   setUserAlbum(album)
+  console.log(response)
 }
 
 const getRefreshToken = async () => {

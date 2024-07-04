@@ -15,9 +15,18 @@ const Sidebar = ({ playlists, albums }: props) => {
             </div>
             <div className={styles.biblioteca}>
                 <p>Sua Biblioteca</p>
-
-                {playlists.map((item: ICard) => { return (<div key={item.id} className={styles.card}> <img src={(item.foto==null)?img: item.foto[0].url} alt="" />  {item.nome} <br></br> </div>) })}
-                {albums.map((item: ICard) => { return (<div key={item.id} className={styles.card}> <img src={(item.foto==null)?img: item.foto[2].url} alt="" /> {item.nome} <br></br> </div>) })}
+                <div className={styles.container_lista}>
+                    <div>
+                        <input type="search" />
+                        <p>filtro</p>
+                    </div>
+                    <ul className={styles.lista}>
+                        {playlists.map((item: ICard) => { return (<li key={item.id} className={styles.card}> <img src={(item.foto==null)?img: item.foto[0].url} alt="" /> <div className={styles.card_descricao}><h1>{item.nome}</h1> <h2>{item.tipo} . {item.artista}</h2></div> </li>) })}
+                        {albums.map((item: ICard) => { return (<li key={item.id} className={styles.card}> <img src={(item.foto==null)?img: item.foto[2].url} alt="" /> <div className={styles.card_descricao}><h1>{item.nome}</h1> <h2>{item.tipo} . {item.artista}</h2></div></li>) })}
+                    </ul>
+                </div>
+                
+                
 
             </div>
         </div>
