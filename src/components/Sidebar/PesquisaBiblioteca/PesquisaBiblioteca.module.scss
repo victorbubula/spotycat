@@ -16,13 +16,13 @@
         border: none;
         align-items: center;
         justify-content: center;
-        background: none;
+        background: url(../../../assets/lupa.svg) center center no-repeat;
+        background-size: 20px;
         &:hover {
-            background-color: gray;
             cursor: pointer;
-        }
-        img {
-            width: 20px;
+            background: url(../../../assets/lupaHover.svg) center center no-repeat;
+            background-color: gray;
+            background-size: 20px;
         }
     }
     .buscar {
@@ -46,19 +46,10 @@
     height: 30px;
     background-color: rgba(36, 35, 35, 0.459);
     .botao{
-        width: 30px;
-        height: 30px;
         border-radius: 50%;
         border: none;
         align-items: center;
         justify-content: center;
-        &:hover {
-            background: none;
-        }
-        img {
-            width: 20px;
-        }
-        background: none;
     }
     .buscar{
 

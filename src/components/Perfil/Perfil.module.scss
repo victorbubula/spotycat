@@ -70,14 +70,20 @@
         color: rgb(207, 207, 207);
         align-items: center;
         justify-content: center;
-
+        &:hover {
+            color: white;
+            transform: scale(1.1);
+        }
         img {
             width: 20px;
         }
     }
-
-    .botao:hover {
-        color: white;
-        transform: scale(1.1);
+    .sino {
+        background: url(../../assets/sino.svg) center center no-repeat;
+        background-color: rgba(36, 35, 35, 0.459);
+        &:hover {
+            background: url(../../assets/sinoHover.svg) center center no-repeat;
+            background-color: rgba(36, 35, 35, 0.459);
+        }
     }
 }

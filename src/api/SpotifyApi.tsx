@@ -119,6 +119,22 @@ export const getAlbums = async (setUserAlbum: React.Dispatch<React.SetStateActio
   console.log(response)
 }
 
+export const getTracks = async (tipo: string, id: string) => {
+  if (tokenExpirado) await getRefreshToken();
+  let tokenacesso = localStorage.getItem("access_token");
+  const userID = {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + tokenacesso
+    }
+  }
+
+  const body = await fetch(`https://api.spotify.com/v1/${tipo}s/${id}`, userID);
+  const response = await body.json();
+  console.log(response)
+}
+
 const getRefreshToken = async () => {
   const refresh = {
     method: 'POST',

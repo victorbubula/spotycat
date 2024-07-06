@@ -6,6 +6,8 @@ import styles from './Home.module.scss';
 import Login from '../Login';
 import Perfil from '../../components/Perfil';
 import ICard from '../../interfaces/ICard';
+import ExibirConteudo from '../../components/ExibirConteudo';
+
 
 const Home = () => {
   const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "", foto:[]})
@@ -41,6 +43,9 @@ const Home = () => {
         <Sidebar playlists={userPlaylist} albums={userAlbums}/>
         <div className={styles.inicio}>
           <Perfil usuario={usuarioLogado} />
+          <div className={styles.conteudo}>
+            <ExibirConteudo/>
+          </div>
         </div>
       </div>
     );
