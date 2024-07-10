@@ -1,6 +1,7 @@
 
 import IAlbums from "../interfaces/IAlbums";
 import ICard from "../interfaces/ICard";
+import IPage from "../interfaces/IPage";
 import IPlaylists from "../interfaces/IPlaylists";
 import IUsuario, { IFoto } from "../interfaces/IUsuario";
 const clientId: string = 'ea4f5c69626c4ac4a248c6e5f01ebe87';
@@ -119,7 +120,7 @@ export const getAlbums = async (setUserAlbum: React.Dispatch<React.SetStateActio
   console.log(response)
 }
 
-export const getTracks = async (tipo: string, id: string) => {
+export const getTracks = async (tipo: string, id: string, exibindo: React.Dispatch<React.SetStateAction<IPage>>) => {
   if (tokenExpirado) await getRefreshToken();
   let tokenacesso = localStorage.getItem("access_token");
   const userID = {
@@ -132,7 +133,8 @@ export const getTracks = async (tipo: string, id: string) => {
 
   const body = await fetch(`https://api.spotify.com/v1/${tipo}s/${id}`, userID);
   const response = await body.json();
-  console.log(response)
+  console.log(response);
+  exibindo(response);
 }
 
 const getRefreshToken = async () => {

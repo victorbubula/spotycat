@@ -1,7 +1,15 @@
+import IPage from "../../interfaces/IPage"
 
-const ExibirConteudo = () => {
+interface props {
+    exibindo: IPage
+}
+
+const ExibirConteudo = ({exibindo}: props) => {
+    
+    
+    
     return(
-        <h1>exibindo</h1>
+        <h1>{exibindo.name}</h1>
     )
 }
 
