@@ -4,18 +4,20 @@ import img from '../../assets/gato.jpg';
 import PesquisaBiblioteca from "./PesquisaBiblioteca";
 import { getTracks } from "../../api/SpotifyApi";
 import { useEffect, useState } from "react";
-import IPage from "../../interfaces/IPage";
+import IExibirAlbum from "../../interfaces/IExibirAlbum";
+import IExibirPlaylist from "../../interfaces/IExibirPlaylist";
 interface props {
     playlists: Array<ICard>
     albums: Array<ICard>
-    exibindo: React.Dispatch<React.SetStateAction<IPage>>
+    exibindoAlbum: React.Dispatch<React.SetStateAction<IExibirAlbum>>
+    exibindoPlaylist: React.Dispatch<React.SetStateAction<IExibirPlaylist>>
 }
 
-const Sidebar = ({ playlists, albums, exibindo}: props) => {
+const Sidebar = ({ playlists, albums, exibindoAlbum, exibindoPlaylist}: props) => {
     const [itemAtivo, setItemAtivo] = useState({tipo:"",id:""})
     useEffect(()=> {
         if(itemAtivo.id !=""){
-            getTracks(itemAtivo.tipo, itemAtivo.id, exibindo)
+            getTracks(itemAtivo.tipo, itemAtivo.id, exibindoAlbum, exibindoPlaylist)
         }
             
     }, [itemAtivo])

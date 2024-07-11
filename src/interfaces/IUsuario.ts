@@ -4,7 +4,7 @@ export default interface IUsuario {
     foto: Array<string>
 }
 export interface IFoto {
-    height:number
+    
     url: string
-    width:number
+    
 }

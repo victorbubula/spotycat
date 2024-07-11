@@ -10,7 +10,7 @@ export default interface IPlaylists {
     primary_color: null | string
     public: boolean
     snapshot_id: string 
-    tracks: object 
+    tracks:object
     type: string
     uri: string 
 }

@@ -7,18 +7,20 @@ import Login from '../Login';
 import Perfil from '../../components/Perfil';
 import ICard from '../../interfaces/ICard';
 import ExibirConteudo from '../../components/ExibirConteudo';
-import IPage from '../../interfaces/IPage';
+import IExibirAlbum from '../../interfaces/IExibirAlbum';
+import IExibirPlaylist from '../../interfaces/IExibirPlaylist';
+
 
 
 const Home = () => {
-  const [exibindo, setExibindo] = useState<IPage>({images:[Object], name: "", tracks:[{name: "", preview_url: ""}], type:"" });
+  const [exibindoAlbum, setExibindoAlbum] = useState<IExibirAlbum>({album:{images:[{url:""}], name: "", tracks:{items:[{name: "", preview_url: ""}]}, type:"" , exibir:false}});
+  const [exibindoPlaylist, setExibindoPlaylist] = useState<IExibirPlaylist>({images:[{url:""}], name: "", tracks:{items:[{track:{name: "", preview_url: ""}}]}, type:"", exibir:false });
   const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "", foto:[]})
   const [userPlaylist, setUserPlaylist] = useState<Array<ICard>>([])
   const [userAlbums, setUserAlbums] = useState<Array<ICard>>([])
   let code = localStorage.getItem('code_verifier')
   let token = localStorage.getItem('access_token')
   useEffect(() => {
-    
     if (code && token == null) getToken();
     getUserId(setUsuarioLogado);
     getPlaylists(setUserPlaylist);
@@ -42,11 +44,11 @@ const Home = () => {
     ) :
     (
       <div className={styles.container}>
-        <Sidebar playlists={userPlaylist} albums={userAlbums} exibindo={setExibindo}/>
+        <Sidebar playlists={userPlaylist} albums={userAlbums} exibindoAlbum={setExibindoAlbum} exibindoPlaylist={setExibindoPlaylist}/>
         <div className={styles.inicio}>
           <Perfil usuario={usuarioLogado} />
           <div className={styles.conteudo}>
-            <ExibirConteudo exibindo={exibindo}/>
+            <ExibirConteudo exibirAlbum={exibindoAlbum} exibirPlaylist={exibindoPlaylist}/>
           </div>
         </div>
       </div>
