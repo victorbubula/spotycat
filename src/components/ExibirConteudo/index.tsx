@@ -1,43 +1,26 @@
-
-import gato from "../../assets/gato.jpg"
-import { useEffect, useState } from "react"
-import IExibirPlaylist from "../../interfaces/IExibirPlaylist"
+import { useEffect, useState} from "react"
 import IExibirAlbum from "../../interfaces/IExibirAlbum"
+import gato from "../../assets/gato.jpg"
 
 interface props {
-    exibirAlbum: IExibirAlbum
-    exibirPlaylist: IExibirPlaylist
+    exibirAlbum: IExibirAlbum;
 }
 
-const ExibirConteudo = ({ exibirAlbum, exibirPlaylist }: props) => {
-    const [imagem, setImagem] = useState(gato);
-    const exibindo = (exibirAlbum.album.type == "album") ? exibirAlbum.album : exibirPlaylist
-    let nome = ""
+const ExibirConteudo = ({ exibirAlbum}: props) => {
+    const [imagem, setImagem] = useState(gato)
     useEffect(() => {
-        if (exibindo == exibirAlbum.album) {
-            if (exibindo.images)
-                setImagem(exibindo.images[0].url)
-            nome = exibindo.name
-        } else if (exibindo == exibirPlaylist) {
-            if (exibindo.images) {
-                setImagem(exibindo.images[0].url)
-            }
-            nome = exibindo.name
-        }
+        if (exibirAlbum.imagem)
+        setImagem(exibirAlbum.imagem)
+    }, [exibirAlbum])
 
-
-        //ARRUMAR ESSA PORRA PRA APARECER NA TELA DIREITO
-    }, [exibirAlbum, exibirPlaylist])
-
-    if (nome!="") return (
+    if (exibirAlbum.nome != "") return (
         <div>
             <img src={imagem} alt="" />
-            <h1>{nome}</h1>
+            <h1>{exibirAlbum.nome}</h1>
             <ul>
-
+                {exibirAlbum.musicas.map((item) => <li>{item.name}</li>)}
             </ul>
         </div>
-
     )
 }
 

@@ -5,19 +5,17 @@ import PesquisaBiblioteca from "./PesquisaBiblioteca";
 import { getTracks } from "../../api/SpotifyApi";
 import { useEffect, useState } from "react";
 import IExibirAlbum from "../../interfaces/IExibirAlbum";
-import IExibirPlaylist from "../../interfaces/IExibirPlaylist";
 interface props {
     playlists: Array<ICard>
     albums: Array<ICard>
     exibindoAlbum: React.Dispatch<React.SetStateAction<IExibirAlbum>>
-    exibindoPlaylist: React.Dispatch<React.SetStateAction<IExibirPlaylist>>
 }
 
-const Sidebar = ({ playlists, albums, exibindoAlbum, exibindoPlaylist}: props) => {
+const Sidebar = ({ playlists, albums, exibindoAlbum}: props) => {
     const [itemAtivo, setItemAtivo] = useState({tipo:"",id:""})
     useEffect(()=> {
         if(itemAtivo.id !=""){
-            getTracks(itemAtivo.tipo, itemAtivo.id, exibindoAlbum, exibindoPlaylist)
+            getTracks(itemAtivo.tipo, itemAtivo.id, exibindoAlbum)
         }
             
     }, [itemAtivo])

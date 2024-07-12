@@ -1,19 +1,9 @@
-import { IFoto } from "./IUsuario"
+
 
 export default interface IExibirPlaylist {
-    images: Array<IFoto>
-    name: string
-    tracks:musicas
-    type: string
-    exibir:boolean
+    track:{
+        name: string
+        preview_url: string
+    }
 }
 
-interface musicas{
-    items: [{
-        track:{
-            name: string
-            preview_url: string
-        }
-        
-    }]
-    }

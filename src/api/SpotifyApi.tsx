@@ -1,4 +1,6 @@
 
+import { useState } from "react";
+import gato from "../assets/gato.jpg"
 import IAlbums from "../interfaces/IAlbums";
 import ICard from "../interfaces/ICard";
 import IExibirAlbum from "../interfaces/IExibirAlbum";
@@ -121,7 +123,7 @@ export const getAlbums = async (setUserAlbum: React.Dispatch<React.SetStateActio
   console.log(response)
 }
 
-export const getTracks = async (tipo: string, id: string, exibindoAlbum: React.Dispatch<React.SetStateAction<IExibirAlbum>>, exibindoPlaylist:React.Dispatch<React.SetStateAction<IExibirPlaylist>> ) => {
+export const getTracks = async (tipo: string, id: string, exibindoAlbum: React.Dispatch<React.SetStateAction<IExibirAlbum>> ) => {
   if (tokenExpirado) await getRefreshToken();
   let tokenacesso = localStorage.getItem("access_token");
   const userID = {
@@ -135,8 +137,12 @@ export const getTracks = async (tipo: string, id: string, exibindoAlbum: React.D
   const body = await fetch(`https://api.spotify.com/v1/${tipo}s/${id}`, userID);
   const response = await body.json();
   console.log(response);
-  (tipo == "album")?
-  exibindoAlbum(response + {exibir: true}): exibindoPlaylist (response+ {exibir: true});
+  exibindoAlbum( {
+    imagem: response.images[0].url,
+    nome: response.name,
+    musicas:(tipo == "playlist")?response.tracks.items.map((item:IExibirPlaylist)=> item.track): response.tracks.items,
+    tipo: response.type
+  })
 }
 
 const getRefreshToken = async () => {
