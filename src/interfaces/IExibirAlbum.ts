@@ -6,7 +6,7 @@ export default interface IExibirAlbum{
     musicas: Array<musicas>
     tipo: string
 }
-interface musicas {
+export interface musicas {
 
 
     name: string

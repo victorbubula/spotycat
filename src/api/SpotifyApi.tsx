@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+
 import gato from "../assets/gato.jpg"
 import IAlbums from "../interfaces/IAlbums";
 import ICard from "../interfaces/ICard";
@@ -138,7 +138,7 @@ export const getTracks = async (tipo: string, id: string, exibindoAlbum: React.D
   const response = await body.json();
   console.log(response);
   exibindoAlbum( {
-    imagem: response.images[0].url,
+    imagem: (response.images)? response.images[0].url: gato,
     nome: response.name,
     musicas:(tipo == "playlist")?response.tracks.items.map((item:IExibirPlaylist)=> item.track): response.tracks.items,
     tipo: response.type

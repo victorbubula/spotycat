@@ -15,7 +15,7 @@ const PesquisaBiblioteca = () => {
             [styles.pesquisa]: true,
             [styles.barra]: (barraPesquisa) ? true : false
         })}>
-            <button className={styles.botao} onClick={() => { (barraPesquisa) ? console.log("pesquisar") : foco() }}>
+            <button disabled={barraPesquisa} className={styles.botao} onClick={() => { (barraPesquisa) ? console.log("pesquisar") : foco() }}>
             </button>
             <input ref={inputRef} onBlur={()=> setBarraPesquisa(false)} className={styles.buscar} type="search" placeholder='Pesquisar...' />
             
