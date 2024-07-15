@@ -4,7 +4,7 @@ import './index.css'
 import Router from './routes';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <React.Suspense>
     <Router/>
-  </React.StrictMode>,
+  </React.Suspense>,
 )

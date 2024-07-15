@@ -1,8 +1,7 @@
-import { IFoto } from "./IUsuario"
 
 export default interface ICard {
     nome:string 
-    foto:Array<IFoto>|null
+    foto:string
     tipo:string
     artista:string
     id:string

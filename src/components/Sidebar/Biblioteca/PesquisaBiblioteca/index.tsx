@@ -2,22 +2,26 @@ import classNames from "classnames"
 import { useRef, useState } from "react";
 import styles from './PesquisaBiblioteca.module.scss'
 
+
 const PesquisaBiblioteca = () => {
     const [barraPesquisa, setBarraPesquisa] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
-    const foco = async () => {
+    const Foco = async () => {
         await setBarraPesquisa(true)
         if (inputRef.current)
             inputRef.current.focus()
+    }
+    const Search = (event:{ target: { value: React.SetStateAction<string>; }; }) => {
+        (event.target.value.toString())
     }
     return (
         <div className={classNames({
             [styles.pesquisa]: true,
             [styles.barra]: (barraPesquisa) ? true : false
         })}>
-            <button disabled={barraPesquisa} className={styles.botao} onClick={() => { (barraPesquisa) ? console.log("pesquisar") : foco() }}>
+            <button disabled={barraPesquisa} className={styles.botao} onClick={() => { if (!barraPesquisa) Foco() }}>
             </button>
-            <input ref={inputRef} onBlur={()=> setBarraPesquisa(false)} className={styles.buscar} type="search" placeholder='Pesquisar...' />
+            <input ref={inputRef} onChange={Search} onBlur={()=> setBarraPesquisa(false)} className={styles.buscar} type="search" placeholder='Pesquisar...' />
             
         </div>
     )

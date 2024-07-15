@@ -16,11 +16,11 @@
         border: none;
         align-items: center;
         justify-content: center;
-        background: url(../../../assets/lupa.svg) center center no-repeat;
+        background: url(../../../../assets/lupa.svg) center center no-repeat;
         background-size: 20px;
         &:hover {
             cursor: pointer;
-            background: url(../../../assets/lupaHover.svg) center center no-repeat;
+            background: url(../../../../assets/lupaHover.svg) center center no-repeat;
             background-color: gray;
             background-size: 20px;
         }
