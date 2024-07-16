@@ -9,10 +9,12 @@ interface Props {
     playlists: Array<ICard>
     albums: Array<ICard>
     exibindoAlbum: React.Dispatch<React.SetStateAction<IExibirAlbum>>
-}
+    pesquisar:(value: string)=> void
+};
 
-const Biblioteca = ({ playlists, albums, exibindoAlbum }: Props) => {
+const Biblioteca = ({ playlists, albums, exibindoAlbum, pesquisar }: Props) => {
     const [itemAtivo, setItemAtivo] = useState({ tipo: "", id: "" })
+
     useEffect(() => {
         if (itemAtivo.id != "") {
             getTracks(itemAtivo.tipo, itemAtivo.id, exibindoAlbum)
@@ -27,11 +29,11 @@ const Biblioteca = ({ playlists, albums, exibindoAlbum }: Props) => {
             </div>
             <div className={styles.biblioteca_lista}>
                 <div className={styles.lista_filtros}>
-                    <PesquisaBiblioteca />
+                    <PesquisaBiblioteca pesquisar={pesquisar} />
                     <p>filtro</p>
                 </div>
                 <ul className={styles.lista_container}>
-                    {[albums,playlists].map((item:Array<ICard>)=>item.map((item: ICard) => {
+                    {[albums, playlists].map((item: Array<ICard>) => item.map((item: ICard) => {
                         return (
                             <li key={item.id} className={styles.lista_card} onClick={() => setItemAtivo({ tipo: item.tipo, id: item.id })}>
                                 <img src={item.foto} alt="" />

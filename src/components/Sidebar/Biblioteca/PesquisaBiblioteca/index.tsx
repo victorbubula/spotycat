@@ -2,8 +2,10 @@ import classNames from "classnames"
 import { useRef, useState } from "react";
 import styles from './PesquisaBiblioteca.module.scss'
 
-
-const PesquisaBiblioteca = () => {
+interface Props {
+    pesquisar:(value: string)=> void
+}
+const PesquisaBiblioteca = ({pesquisar}: Props) => {
     const [barraPesquisa, setBarraPesquisa] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
     const Foco = async () => {
@@ -12,7 +14,7 @@ const PesquisaBiblioteca = () => {
             inputRef.current.focus()
     }
     const Search = (event:{ target: { value: React.SetStateAction<string>; }; }) => {
-        (event.target.value.toString())
+        pesquisar(event.target.value.toString())
     }
     return (
         <div className={classNames({

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import IUsuario from '../../interfaces/IUsuario';
-import getToken, { getPlaylists, getUserId } from '../../api/SpotifyApi';
+import getToken, { getUserId } from '../../api/SpotifyApi';
 import styles from './Home.module.scss';
 import Login from '../Login';
 import Perfil from '../../components/Perfil';
-import ICard from '../../interfaces/ICard';
 import ExibirConteudo from '../../components/ExibirConteudo';
 import IExibirAlbum from '../../interfaces/IExibirAlbum';
 
@@ -17,15 +16,12 @@ const Home = () => {
     tipo: ""
   });
   const [usuarioLogado, setUsuarioLogado] = useState<IUsuario>({ nome: "", userid: "", foto: [] })
-  const [userPlaylist, setUserPlaylist] = useState<Array<ICard>>([])
-  const [userAlbum, setUserAlbum] = useState<Array<ICard>>([])
   let code = localStorage.getItem('code_verifier')
   let token = localStorage.getItem('access_token')
   useEffect(() => {
     if (code && token == null) getToken();
     getUserId(setUsuarioLogado);
-    getPlaylists("playlist", setUserPlaylist);
-    getPlaylists("album", setUserAlbum);
+    
     function removerParametrosEspecificosDaURL(url: string, parametrosParaRemover: string[]) {
       // Criando um objeto URL a partir da URL fornecida
       const urlObj = new URL(url);
@@ -45,7 +41,7 @@ const Home = () => {
     ) :
     (
       <div className={styles.container}>
-        <Sidebar playlists={userPlaylist} albums={userAlbum} exibindoAlbum={setExibindoAlbum}/>
+        <Sidebar exibindoAlbum={setExibindoAlbum}/>
         <div className={styles.inicio}>
           <Perfil usuario={usuarioLogado} />
           <div className={styles.conteudo}>
