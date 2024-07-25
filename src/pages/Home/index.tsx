@@ -12,6 +12,7 @@ const Home = () => {
   const [exibindoAlbum, setExibindoAlbum] = useState<IExibirAlbum>({
     imagem: "",
     nome: "",
+    artista:"",
     musicas: [{ name: "", preview_url: "" }],
     tipo: ""
   });
@@ -44,9 +45,7 @@ const Home = () => {
         <Sidebar exibindoAlbum={setExibindoAlbum}/>
         <div className={styles.inicio}>
           <Perfil usuario={usuarioLogado} />
-          <div className={styles.conteudo}>
-            <ExibirConteudo exibirAlbum={exibindoAlbum} />
-          </div>
+          <ExibirConteudo exibirAlbum={exibindoAlbum} />
         </div>
       </div>
     );

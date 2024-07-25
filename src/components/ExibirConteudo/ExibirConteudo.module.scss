@@ -17,12 +17,20 @@
             background-color: rgba(128, 128, 128, 0.541);
         }
     }
-    .album_capa{
-        width: 224px;
-        height: 224px;
+    .album_head{
+        display: flex;
+        .album_capa{
+            width: 224px;
+            height: 224px;
+        }
+        .album_info {
+            .album_titulo{
+                font-size: 24px;
+            }
+            .album_tipo{
+                text-transform: capitalize;
+            }
+        }
     }
-    .album_titulo{
-        font-size: 24px;
-    }
-
+    
 }

@@ -11,15 +11,20 @@ interface props {
 const Sidebar = ({exibindoAlbum}: props) => {
     const [userPlaylist, setUserPlaylist] = useState<Array<ICard>>([])
     const [userAlbum, setUserAlbum] = useState<Array<ICard>>([])
+    const [pesquisando, setPesquisando] = useState(false)
     function pesquisar(value: string) {
-        value.toLowerCase()
-        setUserAlbum(userAlbum.filter(album => album.nome.toLowerCase().includes(value)))
-        setUserPlaylist(userPlaylist.filter(playlist => playlist.nome.toLowerCase().includes(value)))
+        if(value==""){
+            setPesquisando((pesquisando==false)? true:false)
+        }else{
+            setUserAlbum(userAlbum.filter(album => album.nome.toLowerCase().includes(value)))
+            setUserPlaylist(userPlaylist.filter(playlist => playlist.nome.toLowerCase().includes(value)))
+        }
+        
     }
     useEffect(()=>{
         getPlaylists("playlist", setUserPlaylist);
         getPlaylists("album", setUserAlbum);
-    },[])
+    },[pesquisando])
     return (
         <div className={styles.container}>
             <div className={styles.inicio}>

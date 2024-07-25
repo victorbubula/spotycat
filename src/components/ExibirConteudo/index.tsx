@@ -8,8 +8,16 @@ interface props {
 const ExibirConteudo = ({ exibirAlbum}: props) => {
     if (exibirAlbum.nome != "") return (
         <div className={styles.album}>
-            <img src={exibirAlbum.imagem} alt="capa" className={styles.album_capa} />
-            <h1 className={styles.album_titulo}>{exibirAlbum.nome}</h1>
+            <div className={styles.album_head}>
+                <img src={exibirAlbum.imagem} alt="capa" className={styles.album_capa} />
+                <div className={styles.album_info}>
+                    <h2 className={styles.album_tipo}>{exibirAlbum.tipo}</h2>
+                    <h1 className={styles.album_titulo}>{exibirAlbum.nome}</h1>
+                    <h3 className={styles.album_artista}>{exibirAlbum.artista}</h3>
+                    <h4>{exibirAlbum.musicas.length}</h4>
+                </div>
+                
+            </div>
             <table className={styles.album_musicas}>
                 <thead>
                     <tr>

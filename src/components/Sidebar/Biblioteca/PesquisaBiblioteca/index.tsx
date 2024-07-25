@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from './PesquisaBiblioteca.module.scss'
 
 interface Props {
@@ -14,7 +14,9 @@ const PesquisaBiblioteca = ({pesquisar}: Props) => {
             inputRef.current.focus()
     }
     const Search = (event:{ target: { value: React.SetStateAction<string>; }; }) => {
-        pesquisar(event.target.value.toString())
+        let valor= event.target.value.toString().toLowerCase()
+        
+        pesquisar(valor)
     }
     return (
         <div className={classNames({

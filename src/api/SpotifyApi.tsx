@@ -1,5 +1,6 @@
 
 
+import { useState } from "react";
 import gato from "../assets/gato.jpg"
 import IAlbums from "../interfaces/IAlbums";
 import ICard from "../interfaces/ICard";
@@ -12,8 +13,8 @@ let tokRefresh = "";
 let expiresIn = 3600
 let tokenExpirado = false
 const url: string = "https://accounts.spotify.com/api/token"
+const [usuario, setUsuario] = useState("")
 export default async function getToken() {
-
   const redirectUri: string = 'http://localhost:5173'
 
   let codeVerifier = localStorage.getItem('code_verifier');
@@ -72,7 +73,7 @@ export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateA
     userid: response.id,
     foto: foto
   })
-
+  setUsuario(response.display_name)
 }
 
 export const getPlaylists = async (tipo: string, setUserPlaylist: React.Dispatch<React.SetStateAction<Array<ICard>>>) => {
@@ -94,7 +95,7 @@ export const getPlaylists = async (tipo: string, setUserPlaylist: React.Dispatch
         nome: item.name,
         foto: (item.images) ? item.images[0].url : gato,
         tipo: item.type,
-        artista: "victor",
+        artista: usuario,
         id: item.id
       })
     })
@@ -130,6 +131,7 @@ export const getTracks = async (tipo: string, id: string, exibindoAlbum: React.D
   exibindoAlbum({
     imagem: (response.images) ? response.images[0].url : gato,
     nome: response.name,
+    artista:(tipo == "playlist") ? usuario :response.artists[0].name,
     musicas: (tipo == "playlist") ? response.tracks.items.map((item: IExibirPlaylist) => item.track) : response.tracks.items,
     tipo: response.type
   })

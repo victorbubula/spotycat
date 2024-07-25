@@ -3,6 +3,7 @@
 export default interface IExibirAlbum{
     imagem: string
     nome: string
+    artista: string
     musicas: Array<musicas>
     tipo: string
 }
