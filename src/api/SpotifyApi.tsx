@@ -1,6 +1,3 @@
-
-
-import { useState } from "react";
 import gato from "../assets/gato.jpg"
 import IAlbums from "../interfaces/IAlbums";
 import ICard from "../interfaces/ICard";
@@ -13,7 +10,7 @@ let tokRefresh = "";
 let expiresIn = 3600
 let tokenExpirado = false
 const url: string = "https://accounts.spotify.com/api/token"
-const [usuario, setUsuario] = useState("")
+let usuario = ""
 export default async function getToken() {
   const redirectUri: string = 'http://localhost:5173'
 
@@ -56,6 +53,7 @@ export default async function getToken() {
 
 export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateAction<IUsuario>>) => {
   if (tokenExpirado) await getRefreshToken()
+  
   let tokenacesso = localStorage.getItem("access_token")
   const userID = {
     method: 'GET',
@@ -73,7 +71,7 @@ export const getUserId = async (setUsuarioLogado: React.Dispatch<React.SetStateA
     userid: response.id,
     foto: foto
   })
-  setUsuario(response.display_name)
+  usuario=response.display_name
 }
 
 export const getPlaylists = async (tipo: string, setUserPlaylist: React.Dispatch<React.SetStateAction<Array<ICard>>>) => {
