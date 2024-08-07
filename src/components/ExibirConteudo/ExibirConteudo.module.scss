@@ -1,8 +1,11 @@
+@import '../../styles/variaveis';
+
 .album {
     padding: 2em;
     height: 80vh;
     overflow-x: hidden;
     overflow-y: scroll;
+    color: white;
     &::-webkit-scrollbar {
         width: 0;
     }
@@ -19,16 +22,26 @@
     }
     .album_head{
         display: flex;
+        align-items: flex-end;
+        background-color: aqua;
         .album_capa{
             width: 224px;
             height: 224px;
         }
         .album_info {
-            .album_titulo{
-                font-size: 24px;
-            }
+            
             .album_tipo{
                 text-transform: capitalize;
+            }
+            .album_titulo{
+                font-size: 4.2rem;
+                font-weight: $bold;
+            }
+            div {
+                display: flex;
+                .album_artista{
+                    font-weight: $medium;
+                }
             }
         }
     }
